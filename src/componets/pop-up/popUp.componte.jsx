@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import UserView from "../userView/userView.componet";
 
 import "./popUp.style.css";
+import Form from "../Form/form.componet";
 
-const PopUp = ({ id, btnAdd, btnEdit, loadData }) => {
+const PopUp = ({ type, rowData }) => {
   const [modal, setModal] = useState(false);
 
   const handleModel = () => {
@@ -15,25 +16,32 @@ const PopUp = ({ id, btnAdd, btnEdit, loadData }) => {
   } else {
     document.body.classList.remove("active-modal");
   }
-  //  {btnAdd}
-  //       {btnEdit}
+
   return (
-    <>
-      <button onClick={handleModel} className="btn-add">
-        View
-      </button>
+    <Fragment>
+      {type === "View" && (
+        <button onClick={handleModel} className="btn-add">
+          {type}
+        </button>
+      )}
+      {type === "Update" && (
+        <button onClick={handleModel} className="btn-update">
+          {type}
+        </button>
+      )}
       {modal && (
         <div className="modal">
           <div className="overlay" onClick={handleModel} />
           <div className="modal-content">
-            <UserView />
+            {type === "View" && <UserView userData={rowData} />}
+            {type === "Update" && <Form userData={rowData} type={type} />}
             <button className="btn-close" onClick={handleModel}>
               X
             </button>
           </div>
         </div>
       )}
-    </>
+    </Fragment>
   );
 };
 

@@ -12,7 +12,7 @@ import {
   CrudCell,
 } from "./custumTable.style";
 
-const CustumTable = ({ Index, tableTitle, tableData }) => {
+const CustumTable = ({ Index, tableTitle, tableData, infomation }) => {
   const [tableHeadTitle, setTableHeadTitle] = useState([]);
 
   useEffect(() => {
@@ -44,9 +44,9 @@ const CustumTable = ({ Index, tableTitle, tableData }) => {
                     </NameCell>
                   ))}
                   <CrudCell>
-                    <PopUp />
+                    <PopUp type="View" rowData={row} />
+                    <PopUp type="Update" rowData={row} />
 
-                    <button>Update</button>
                     <button>Delete</button>
                   </CrudCell>
                 </TableRow>

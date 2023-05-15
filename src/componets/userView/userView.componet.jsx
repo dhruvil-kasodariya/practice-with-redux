@@ -1,14 +1,21 @@
-const Userview = () => {
+import {
+  Container,
+  Field,
+  Button,
+  ButtonContainer,
+  Label,
+  Value,
+} from "./userView.style";
+const Userview = ({ userData }) => {
   return (
-    <div>
-      <div>name</div>
-      <div>email</div>
-      <div>location</div>
-      <div>
-        <button>edit</button>
-        <button>close</button>
-      </div>
-    </div>
+    <Container>
+      {Object.entries(userData).map(([key, value]) => (
+        <Field key={key}>
+          <Label>{key}:</Label>
+          <Value>{value}</Value>
+        </Field>
+      ))}
+    </Container>
   );
 };
 

@@ -13,12 +13,3 @@ export const Wraper = styled.div`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   padding: 30px;
 `;
-
-export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-export const Label = styled.h2`
-  margin-bottom: 20px;
-`;
