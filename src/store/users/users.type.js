@@ -1,0 +1,6 @@
+export const USERS_ACTION_TYPES = {
+  SET_USERS: "users/SET_USERS",
+  UPDATE_USERS: "users/UPDATE_USERS",
+  DELETE_USERS: "users/DELETE_USERS",
+  GET_USERS: "users/GET_USERS",
+};
