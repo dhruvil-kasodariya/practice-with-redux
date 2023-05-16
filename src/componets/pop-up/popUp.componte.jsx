@@ -1,8 +1,6 @@
 import React, { Fragment, useState } from "react";
 import UserView from "../userView/userView.componet";
-
 import "./popUp.style.css";
-import Form from "../Form/form.componet";
 
 const PopUp = ({ type, rowData }) => {
   const [modal, setModal] = useState(false);
@@ -19,22 +17,16 @@ const PopUp = ({ type, rowData }) => {
 
   return (
     <Fragment>
-      {type === "View" && (
-        <button onClick={handleModel} className="btn-add">
-          {type}
-        </button>
-      )}
-      {type === "Update" && (
-        <button onClick={handleModel} className="btn-update">
-          {type}
-        </button>
-      )}
+      <button onClick={handleModel} className="btn-add">
+        {type}
+      </button>
+
       {modal && (
         <div className="modal">
           <div className="overlay" onClick={handleModel} />
           <div className="modal-content">
-            {type === "View" && <UserView userData={rowData} />}
-            {type === "Update" && <Form userData={rowData} type={type} />}
+            <UserView userData={rowData} />
+
             <button className="btn-close" onClick={handleModel}>
               X
             </button>

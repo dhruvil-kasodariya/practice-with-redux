@@ -4,7 +4,7 @@ import UserListTable from "../../componets/userListTable/userListTable.componet"
 
 import { Container, Button } from "./home.style";
 
-const Home = ({ users }) => {
+const Home = () => {
   return (
     <Container>
       <Button>

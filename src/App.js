@@ -8,7 +8,10 @@ const App = () => {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/home" element={<Home />} />
+          {["/home", "/"].map((path) => (
+            <Route path={path} element={<Home />} />
+          ))}
+
           <Route path="/registration" element={<Registration />} />
         </Routes>
       </BrowserRouter>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import PopUp from "../pop-up/popUp.componte";
 import {
   Container,
@@ -10,14 +11,21 @@ import {
   IndexCell,
   NameCell,
   CrudCell,
+  UpdateButton,
 } from "./custumTable.style";
 
-const CustumTable = ({ Index, tableTitle, tableData, infomation }) => {
+const CustumTable = ({ Index, tableTitle, tableData, action, dispatch }) => {
   const [tableHeadTitle, setTableHeadTitle] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTableHeadTitle(tableData.length ? Object.keys(tableData[0]) : []);
   }, [tableData]);
+
+  const updateHandle = (row) => {
+    dispatch(action(row));
+    navigate("/registration");
+  };
 
   return (
     <Container>
@@ -44,8 +52,10 @@ const CustumTable = ({ Index, tableTitle, tableData, infomation }) => {
                     </NameCell>
                   ))}
                   <CrudCell>
-                    <PopUp type="View" rowData={row} />
-                    <PopUp type="Update" rowData={row} />
+                    <PopUp type="View" rowData={row} id={index} />
+                    <UpdateButton onClick={() => updateHandle(row)}>
+                      Update
+                    </UpdateButton>
 
                     <button>Delete</button>
                   </CrudCell>

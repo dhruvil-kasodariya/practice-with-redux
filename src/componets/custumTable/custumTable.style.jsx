@@ -67,3 +67,18 @@ export const EmailCell = styled(TableCell)`
 export const CrudCell = styled(TableCell)`
   text-align: right;
 `;
+
+export const UpdateButton = styled.button`
+  background-color: rgb(46, 62, 150);
+  border-radius: 5px;
+  height: 5%;
+  padding: 1% 5%;
+  margin-right: 10%;
+  font-size: large;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: gray;
+  }
+`;

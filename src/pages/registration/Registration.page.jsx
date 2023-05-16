@@ -8,10 +8,10 @@ const Registration = () => {
   return (
     <Container>
       <Wraper>
-        <Button>
-          <Link to={"/home"}>Register</Link>
-        </Button>
         <Form />
+        <Button>
+          <Link to={"/home"}>Home</Link>
+        </Button>
       </Wraper>
     </Container>
   );

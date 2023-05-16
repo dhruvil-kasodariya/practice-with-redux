@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectUserList } from "../../store/users/users.selector";
+import {
+  selectUserList,
+  selectSingleUser,
+} from "../../store/users/users.selector";
 import { setUsers } from "../../store/users/users.action";
 import FormInput from "../../componets/FormInput/form-input.componet";
 import Button from "../Button/button.componet";
@@ -13,11 +16,17 @@ const initialState = {
   password: "",
 };
 
-const Form = ({ type }) => {
+const Form = () => {
   const [data, setData] = useState(initialState);
+  const [id, setId] = useState();
+
   const navigate = useNavigate();
+
   const users = useSelector(selectUserList);
+  const singleUser = useSelector(selectSingleUser);
   const dispatch = useDispatch();
+
+  console.log(singleUser);
   const handleInputChange = (e) => {
     const value = e.target.value;
     const name = e.target.id;
@@ -50,14 +59,23 @@ const Form = ({ type }) => {
         alert("Enter Password");
       }
     } else {
-      const user = [...users, data];
-      dispatch(setUsers(user));
-      navigate("/home");
+      if (Object.keys(singleUser).length) {
+        users.splice(id, 1, data);
+        dispatch(setUsers(users));
+        navigate("/home");
+      } else {
+        const user = [...users, data];
+        dispatch(setUsers(user));
+        navigate("/home");
+      }
     }
   };
-  const handleHome = () => {
-    navigate("/home");
-  };
+
+  useEffect(() => {
+    Object.keys(singleUser).length && setData(singleUser);
+    Object.keys(singleUser).length && users && setId(users.indexOf(singleUser));
+  }, [singleUser, users]);
+
   return (
     <>
       <Label>Registration Form</Label>
@@ -69,6 +87,7 @@ const Form = ({ type }) => {
           type="text"
           placeholder="Enter your name here..."
           onChange={handleInputChange}
+          value={"" || data.name}
         />
         <FormInput
           required
@@ -77,6 +96,7 @@ const Form = ({ type }) => {
           label="Email"
           placeholder="Enter your email here..."
           onChange={handleInputChange}
+          value={"" || data.email}
         />
         <FormInput
           id="password"
@@ -84,10 +104,13 @@ const Form = ({ type }) => {
           type="password"
           placeholder="Enter your password"
           onChange={handleInputChange}
+          value={"" || data.password}
         />
-        <Button children={type ? "update" : "submit"} type="submit" />
+        <Button
+          children={Object.keys(singleUser).length ? "update" : "submit"}
+          type="submit"
+        ></Button>
       </FormStyled>
-      {!type && <Button onclick={handleHome}>Go Home</Button>}
     </>
   );
 };
