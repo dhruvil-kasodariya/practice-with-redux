@@ -5,9 +5,10 @@ import {
   selectUserList,
   selectSingleUser,
 } from "../../store/users/users.selector";
-import { setUsers } from "../../store/users/users.action";
+import { setUsers, setSingleUser } from "../../store/users/users.action";
 import FormInput from "../../componets/FormInput/form-input.componet";
 import Button from "../Button/button.componet";
+import { toast } from "react-toastify";
 import { Label, FormStyled } from "./form.style";
 
 const initialState = {
@@ -26,7 +27,6 @@ const Form = () => {
   const singleUser = useSelector(selectSingleUser);
   const dispatch = useDispatch();
 
-  console.log(singleUser);
   const handleInputChange = (e) => {
     const value = e.target.value;
     const name = e.target.id;
@@ -62,11 +62,14 @@ const Form = () => {
       if (Object.keys(singleUser).length) {
         users.splice(id, 1, data);
         dispatch(setUsers(users));
+        dispatch(setSingleUser({}));
         navigate("/home");
+        toast.success("User Updated");
       } else {
         const user = [...users, data];
         dispatch(setUsers(user));
         navigate("/home");
+        toast.success("User Add");
       }
     }
   };

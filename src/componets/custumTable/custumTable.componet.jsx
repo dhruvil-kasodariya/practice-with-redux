@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PopUp from "../pop-up/popUp.componte";
+import CustomAlert from "../customAlert/customAlert.compent";
+import { toast } from "react-toastify";
 import {
   Container,
   Wrapper,
@@ -12,9 +14,18 @@ import {
   NameCell,
   CrudCell,
   UpdateButton,
+  DeleteButton,
+  customAlertStyle,
 } from "./custumTable.style";
 
-const CustumTable = ({ Index, tableTitle, tableData, action, dispatch }) => {
+const CustumTable = ({
+  Index,
+  tableTitle,
+  tableData,
+  updateAction,
+  dispatch,
+  deleteAction,
+}) => {
   const [tableHeadTitle, setTableHeadTitle] = useState([]);
   const navigate = useNavigate();
 
@@ -23,8 +34,27 @@ const CustumTable = ({ Index, tableTitle, tableData, action, dispatch }) => {
   }, [tableData]);
 
   const updateHandle = (row) => {
-    dispatch(action(row));
+    dispatch(updateAction(row));
     navigate("/registration");
+  };
+
+  const deleteUserHandle = (id) => {
+    const handleConfirmDelete = () => {
+      dispatch(deleteAction(id));
+      navigate("/home");
+      toast.success("User Deleted");
+    };
+    // Call the confirmation alert when deleting a user
+    setDeleteConfirmation({ open: true, onConfirm: handleConfirmDelete });
+  };
+
+  const [deleteConfirmation, setDeleteConfirmation] = useState({
+    open: false,
+    onConfirm: null,
+  });
+
+  const handleCloseDeleteConfirmation = () => {
+    setDeleteConfirmation({ open: false, onConfirm: null });
   };
 
   return (
@@ -56,8 +86,9 @@ const CustumTable = ({ Index, tableTitle, tableData, action, dispatch }) => {
                     <UpdateButton onClick={() => updateHandle(row)}>
                       Update
                     </UpdateButton>
-
-                    <button>Delete</button>
+                    <DeleteButton onClick={() => deleteUserHandle(index)}>
+                      Delete
+                    </DeleteButton>
                   </CrudCell>
                 </TableRow>
               ))}
@@ -67,6 +98,14 @@ const CustumTable = ({ Index, tableTitle, tableData, action, dispatch }) => {
           "Table data not avaible"
         )}
       </Wrapper>
+      {deleteConfirmation.open && (
+        <CustomAlert
+          message="Are you sure you want to delete this user?"
+          onConfirm={deleteConfirmation.onConfirm}
+          onClose={handleCloseDeleteConfirmation}
+          style={customAlertStyle}
+        />
+      )}
     </Container>
   );
 };

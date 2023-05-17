@@ -19,9 +19,11 @@ export const usersReducer = (state = USERS_INITIAL_STATE, action) => {
         singleUser: payload,
       };
     case USERS_ACTION_TYPES.DELETE_USER:
+      state.usersList.splice(payload, 1);
+
       return {
         ...state,
-        usersList: state.usersList.splice(payload.id, 1),
+        usersList: state.usersList,
       };
     default:
       return state;

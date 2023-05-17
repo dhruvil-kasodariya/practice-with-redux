@@ -1,6 +1,13 @@
 import React, { Fragment, useState } from "react";
 import UserView from "../userView/userView.componet";
-import "./popUp.style.css";
+import {
+  ButtonAdd,
+  Modal,
+  ModalContent,
+  ButtonClose,
+  Overlay,
+  ActiveModalBody,
+} from "./popUp.style.jsx";
 
 const PopUp = ({ type, rowData }) => {
   const [modal, setModal] = useState(false);
@@ -9,30 +16,29 @@ const PopUp = ({ type, rowData }) => {
     setModal(!modal);
   };
 
-  if (modal) {
-    document.body.classList.add("active-modal");
-  } else {
-    document.body.classList.remove("active-modal");
-  }
+  // if (modal) {
+  //   document.body.classList.add("active-modal");
+  // } else {
+  //   document.body.classList.remove("active-modal");
+  // }
 
   return (
     <Fragment>
-      <button onClick={handleModel} className="btn-add">
+      <ButtonAdd onClick={handleModel} className="btn-add">
         {type}
-      </button>
+      </ButtonAdd>
 
       {modal && (
-        <div className="modal">
-          <div className="overlay" onClick={handleModel} />
-          <div className="modal-content">
+        <Modal>
+          <Overlay onClick={handleModel} />
+          <ModalContent>
             <UserView userData={rowData} />
 
-            <button className="btn-close" onClick={handleModel}>
-              X
-            </button>
-          </div>
-        </div>
+            <ButtonClose onClick={handleModel}>X</ButtonClose>
+          </ModalContent>
+        </Modal>
       )}
+      {modal && <ActiveModalBody className="active-modal" />}
     </Fragment>
   );
 };

@@ -68,8 +68,7 @@ export const CrudCell = styled(TableCell)`
   text-align: right;
 `;
 
-export const UpdateButton = styled.button`
-  background-color: rgb(46, 62, 150);
+export const BaseButton = styled.button`
   border-radius: 5px;
   height: 5%;
   padding: 1% 5%;
@@ -82,3 +81,25 @@ export const UpdateButton = styled.button`
     background-color: gray;
   }
 `;
+export const UpdateButton = styled(BaseButton)`
+  background-color: rgb(46, 62, 150);
+`;
+
+export const DeleteButton = styled(BaseButton)`
+  background-color: rgb(167, 47, 17);
+`;
+
+export const customAlertStyle = {
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  content: {
+    backgroundColor: "gray",
+    border: "none",
+    borderRadius: "4px",
+    padding: "20px",
+    maxWidth: "400px",
+    margin: "0 auto",
+    height: "200px",
+  },
+};

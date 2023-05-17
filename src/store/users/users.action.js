@@ -9,5 +9,5 @@ export const setUsers = (userList) =>
 export const setSingleUser = (user) =>
   createAction(USERS_ACTION_TYPES.GET_SINGLE_USER, user);
 
-export const DeleteUser = ({ user, id }) =>
-  createAction(USERS_ACTION_TYPES.DELETE_USER, { user, id });
+export const DeleteUser = (id) =>
+  createAction(USERS_ACTION_TYPES.DELETE_USER, id);

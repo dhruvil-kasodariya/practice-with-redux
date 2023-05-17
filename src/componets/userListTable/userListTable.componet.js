@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { selectUserList } from "../../store/users/users.selector";
 import CustumTable from "../custumTable/custumTable.componet";
-import { setSingleUser } from "../../store/users/users.action";
+import { setSingleUser, DeleteUser } from "../../store/users/users.action";
 
 const UserListTable = () => {
   const users = useSelector(selectUserList);
@@ -12,7 +12,8 @@ const UserListTable = () => {
         tableTitle="User List"
         tableData={users}
         dispatch={dispatch}
-        action={setSingleUser}
+        updateAction={setSingleUser}
+        deleteAction={DeleteUser}
       />
     </>
   );
